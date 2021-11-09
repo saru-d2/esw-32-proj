@@ -1,0 +1,24 @@
+.navbar {
+  background-color: rgba(152, 232, 232, 0.927);
+}
+
+:root {
+  --sea-green: #3c3b45;
+  --muave: #4f447287;
+  --light-grey: #e1e8f0;
+  --red: #da3344;
+  --dark-grey: rgb(50, 50, 50);
+  --background: rgb(57, 48, 70);
+}
+
+.red {
+  background-color: rgb(230, 104, 104);
+  color: white !important;
+}
+
+h1 {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 800;
+  font-size: 3rem;
+  color: var(--dark-grey);
+}
