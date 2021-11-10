@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import useDeepCompareEffect from 'use-deep-compare-effect'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Line, LineChart } from 'recharts';
 
 
@@ -20,8 +21,9 @@ const SampleRTChart = (props) => {
   //       }, 4000) 
   // }, [])
 
-  useLayoutEffect(() => {
+  useDeepCompareEffect(() => {
     const interval = setInterval(() => {
+      console.log('asd')
       if (Object.keys(props['data'].current).length === 0 && props['data'].current.constructor === Object);
       else {
         let thing = props['data'].current.map(function (each) {
@@ -30,8 +32,8 @@ const SampleRTChart = (props) => {
         // console.log(thing)
         setChartData(thing)
       }
-    }, 2000)
-  })
+    }, 1000)
+  }, [props['data'].current]);
 
   return (
     <div className='col'>

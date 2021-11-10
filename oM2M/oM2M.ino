@@ -2,14 +2,16 @@
 #include "HTTPClient.h"
 #include "Arduino_JSON.h"
 
-char *ssid = "";
-char *pwd = "";
+char *ssid = "senthil_home1";
+char *pwd = "buzzlightyear";
 
 String server = "https://esw-onem2m.iiit.ac.in/~/in-cse/in-name/";
 
 const char* ntpServer = "pool.ntp.org";
 const long timeOffset = 19800;
 const int daylightOffset = 0;
+
+
 
 String createCI(String val)
 {
@@ -21,13 +23,28 @@ String createCI(String val)
   int code = http.POST("{\"m2m:cin\": {""\"con\":\"" + val + "\"""}}");
  
   http.end();
-  Serial.print("code: ");
-  Serial.println(code);
   if(code==-1)
-  {
-    ESP.restart();
+   {
+     ESP.restart();
+   }
+//   delay(300);
+}
+
+void sendData(String url){
+  HTTPClient http; // Initialize our HTTP client
+
+  http.begin(url.c_str()); // Initialize our HTTP request
+      
+  int httpResponseCode = http.GET(); // Send HTTP request
+      
+  if (httpResponseCode > 0){ // Check for good HTTP status code
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+  }else{
+    Serial.print("Error code: ");
+    Serial.println(httpResponseCode);
   }
-  delay(300);
+  http.end();
 }
 
 void setup()
@@ -82,6 +99,11 @@ void loop()
 
   // Send data to OneM2M server
   createCI(sensor_string);
+  
+  // Send data to ThingSpeak
+  String TSsend = "https://api.thingspeak.com/update?api_key=VOQD3DX80YY1IDPM" +  String("&field1=") + String(PH) + "&field2=" + String(TDS) + "&field3=" + String(TURB) + "&field4=" + String(ORP) + "&field5=" + String(TEMP) ;
+  sendData(TSsend);
+  
 
-  delay(2000);
+  delay(3000);
 }
