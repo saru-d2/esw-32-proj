@@ -2,8 +2,8 @@
 #include "HTTPClient.h"
 #include "Arduino_JSON.h"
 
-char *ssid = "senthil_home1";
-char *pwd = "buzzlightyear";
+char *ssid = "";
+char *pwd = "";
 
 String server = "https://esw-onem2m.iiit.ac.in/~/in-cse/in-name/";
 
