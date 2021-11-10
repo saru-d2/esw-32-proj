@@ -2,8 +2,8 @@
 #include "HTTPClient.h"
 #include "Arduino_JSON.h"
 
-char *ssid = "";
-char *pwd = "";
+char *ssid = "senthil_home1";
+char *pwd = "buzzlightyear";
 
 String server = "https://esw-onem2m.iiit.ac.in/~/in-cse/in-name/";
 
@@ -58,7 +58,7 @@ void setup()
   Serial.println("Setup done");
 }
 
-void loop()
+void loop() 
 {
   struct tm timeinfo;
   String timetosend;
@@ -69,16 +69,16 @@ void loop()
 
   Serial.println(timetosend);
   
-  int ntu = random(100);
-  int otherdata = random(50);
-  int nextdata = random(10);
-  int lmaowhat = random(1000);
-  int lasttime = random(400);
+  int PH = random(100);
+  int TDS = random(100);
+  int TURB = random(100);
+  int ORP = random(100);
+  int TEMP = random(100);
   
   Serial.print ("Sensor Output (ntu):");
-  Serial.println (ntu);
+  Serial.println (PH);
 
-  String sensor_string = "[" + timetosend + "," + String(ntu) + String(otherdata) + String(nextdata) + String(lmaowhat) + String(lasttime) + "]";
+  String sensor_string = timetosend + "," + String(PH) + ","+ String(TDS) + ","+ String(TURB) + ","+ String(ORP) + ","+ String(TEMP) ;
 
   // Send data to OneM2M server
   createCI(sensor_string);
