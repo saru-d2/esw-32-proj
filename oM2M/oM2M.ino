@@ -122,8 +122,12 @@ void loop()
   int ORP = random(100);
   int TEMP = random(100);
 
+
+  Serial.print ("Sensor Outputs:");
+  Serial.println(sensor_string);
   // Send data to OneM2M server
   String sensor_string = timetosend + "," + String(PH) + ","+ String(TDS) + ","+ String(TURB) + ","+ String(ORP) + ","+ String(TEMP) ;
+
   createCI(sensor_string);
   
   // Send data to ThingSpeak
