@@ -24,7 +24,9 @@ router.get('/getLatest', (req, res) => {
         //decryption here
 
         let raw = r2.data['m2m:cin']['con'];
+
         raw = decrypt(raw);
+
         raw = raw.split(',');
         let ints = raw.map(i => Number(i));
         console.log(ints);
@@ -37,6 +39,7 @@ router.get('/getLatest', (req, res) => {
             'temp': ints[5],
         }
         return res.json({ 'data': ret });
+
     })
 });
 
@@ -61,6 +64,10 @@ function decrypt(ciphertext) {
     return decoded_b64msg;
 }
 
+    });
+})
+
+
 function extract(raw) {
     raw = raw.split(',');
     let ints = raw.map(i => Number(i));
@@ -84,7 +91,7 @@ router.get('/getAll', (req, res) => {
 
         ret = ret.map(function(each) {
             return extract(each['con']);
-        })
+        });
 
         return res.json({ 'data': ret });
     });
