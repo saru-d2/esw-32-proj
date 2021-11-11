@@ -64,8 +64,6 @@ function decrypt(ciphertext) {
     return decoded_b64msg;
 }
 
-    });
-})
 
 
 function extract(raw) {
