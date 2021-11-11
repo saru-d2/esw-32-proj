@@ -1,4 +1,5 @@
-const express = require("express");
+const CryptoJS = require('crypto-js');
+const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
@@ -23,6 +24,9 @@ router.get('/getLatest', (req, res) => {
         //decryption here
 
         let raw = r2.data['m2m:cin']['con'];
+
+        raw = decrypt(raw);
+
         raw = raw.split(',');
         let ints = raw.map(i => Number(i));
         console.log(ints);
@@ -35,8 +39,34 @@ router.get('/getLatest', (req, res) => {
             'temp': ints[5],
         }
         return res.json({ 'data': ret });
+
+    })
+});
+
+function decrypt(ciphertext) {
+    const base64_iv  = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+    const iv  = CryptoJS.enc.Hex.parse(base64_iv);
+
+    const AESKey = '2B7E151628AED2A6ABF7158809CF4F3C';
+    const key = CryptoJS.enc.Hex.parse(AESKey);
+
+    // Decrypting
+    const bytes  = CryptoJS.AES.decrypt( ciphertext, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.ZeroPadding
+    });
+    const plaintext = bytes.toString(CryptoJS.enc.Base64);
+    const decoded_b64msg =  new Buffer(plaintext, 'base64').toString('ascii');
+
+    console.log("Decrypted message: ", decoded_b64msg);
+    
+    return decoded_b64msg;
+}
+
     });
 })
+
 
 function extract(raw) {
     raw = raw.split(',');
