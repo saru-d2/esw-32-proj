@@ -2,8 +2,8 @@
 #include "HTTPClient.h"
 #include "AESLib.h"
 
-char *ssid = "";
-char *pwd = "";
+char *ssid = "senthil_home1";
+char *pwd = "buzzlightyear";
 
 //REALTIME START
 const char* ntpServer = "pool.ntp.org";
@@ -124,5 +124,5 @@ void loop()
   String TSsend = "https://api.thingspeak.com/update?api_key=VOQD3DX80YY1IDPM" +  String("&field1=") + String(PH) + "&field2=" + String(TDS) + "&field3=" + String(TURB) + "&field4=" + String(ORP) + "&field5=" + String(TEMP) ;
   sendData(TSsend);
   
-  delay(5000);
+  delay(2000);
 }
