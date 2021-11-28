@@ -26,17 +26,17 @@ const TSChartGrid = (props) => {
         <div>
             <div className='row'>
                 <div className='col'>
-                    <SampleRTChart data={data} thingToPlot='field1' />
+                    <SampleRTChart data={data} thingToPlot='field1' title='Temp' />
                 </div>
                 <div className='col'>
-                <SampleRTChart data={data} thingToPlot= 'field2' />
+                <SampleRTChart data={data} thingToPlot= 'field2' title='TDS voltage' />
                 </div>
             </div>
             <div className='row'>
                 <div className='col'>
-                <SampleRTChart data={data} thingToPlot='field3' />
+                <SampleRTChart data={data} thingToPlot='field3' title='Temp compensation'/>
                 </div><div className='col'>
-                <SampleRTChart data={data} thingToPlot='field4' />
+                <SampleRTChart data={data} thingToPlot='field4' title='TDS with temp compenation'/>
                 </div>
             </div>
         </div>

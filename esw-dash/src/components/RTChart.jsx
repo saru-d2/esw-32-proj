@@ -5,6 +5,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Line, LineChart 
 
 const SampleRTChart = (props) => {
   let thingToPlot = props.thingToPlot
+  let title = props.title
   let [chartData, setChartData] = useState([])
   // useEffect(() => {
   //     const interval = setInterval(() => {
@@ -37,7 +38,7 @@ const SampleRTChart = (props) => {
 
   return (
     <div className='col'>
-      <h3>{thingToPlot}</h3>
+      <h3>{title}</h3>
       <AreaChart
         width={600}
         height={400}

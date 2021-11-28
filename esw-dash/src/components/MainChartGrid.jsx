@@ -22,17 +22,17 @@ const MainChartGrid = (props) => {
         <div>
             <div className='row'>
                 <div className='col'>
-                    <SampleRTChart data={data} thingToPlot='ph' />
+                    <SampleRTChart data={data} thingToPlot='ph' title='ph'/>
                 </div>
                 <div className='col'>
-                <SampleRTChart data={data} thingToPlot= 'tds' />
+                <SampleRTChart data={data} thingToPlot= 'tds' title='tds'/>
                 </div>
             </div>
             <div className='row'>
                 <div className='col'>
-                <SampleRTChart data={data} thingToPlot='temp' />
+                <SampleRTChart data={data} thingToPlot='temp' title='temp'/>
                 </div><div className='col'>
-                <SampleRTChart data={data} thingToPlot='orp' />
+                <SampleRTChart data={data} thingToPlot='orp' title='orp' />
                 </div>
             </div>
         </div>
