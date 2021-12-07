@@ -1,6 +1,7 @@
 #include "WiFi.h"
 #include "HTTPClient.h"
 #include "AESLib.h"
+#include "ESP32_MailClient.h"
 
 char *ssid = "senthil_home1";
 char *pwd = "buzzlightyear";
@@ -14,6 +15,29 @@ const int daylightOffset = 0;
 //ENCRYPTION START
 unsigned char cleartext[(128 + 1)] = {0}; // THIS IS INPUT BUFFER (FOR TEXT)
 unsigned char ciphertext[2*(128 + 1)] = {0}; // THIS IS OUTPUT BUFFER (FOR BASE64-ENCODED ENCRYPTED DATA)
+
+
+#define GMAIL_SMTP_SEVER "smtp.gmail.com"
+#define GMAIL_SMTP_USERNAME "saru.esp32@gmail.com"
+#define GMAIL_SMTP_PASSWORD "esp32SUX!"
+#define GMAIL_SMTP_PORT 465  
+SMTPData data;
+
+String sendEmail(int PH) {
+  
+  Serial.println("sending mail");
+  data.setLogin(GMAIL_SMTP_SEVER, GMAIL_SMTP_PORT, GMAIL_SMTP_USERNAME, GMAIL_SMTP_PASSWORD);
+  data.setSender("team32", GMAIL_SMTP_USERNAME);
+  data.setSubject("team32 dash");
+  data.setMessage("pH (" + String(PH) + ") is out of safe range", false);
+  data.addRecipient("saru.d.gr8@gmail.com");
+  delay(100);
+  Serial.println(MailClient.sendMail(data));
+  if (!MailClient.sendMail(data)) 
+    Serial.println(MailClient.smtpErrorReason());
+    return MailClient.smtpErrorReason();
+  return "";
+}
 
 uint16_t encrypt_to_ciphertext(char * msg, uint16_t msgLen, byte iv[]) {
   Serial.println("Calling encrypt (string)...");
@@ -110,11 +134,14 @@ void loop()
     timetosend = String(timeinfo.tm_year + 1900) + String(timeinfo.tm_mon + 1) + String(timeinfo.tm_mday) + String(timeinfo.tm_hour) + String(timeinfo.tm_min) + String(timeinfo.tm_sec);
 
   //Sensor data (not real)
-  int PH = random(100);
+  int PH = random(14);
   int TDS = random(100);
   int TURB = random(100);
   int ORP = random(100);
   int TEMP = random(100);
+
+  if (PH > 8 || PH < 4)
+    sendEmail(PH);
 
   // Send data to OneM2M server
   String sensor_string = timetosend + "," + String(PH) + ","+ String(TDS) + ","+ String(TURB) + ","+ String(ORP) + ","+ String(TEMP) ;
