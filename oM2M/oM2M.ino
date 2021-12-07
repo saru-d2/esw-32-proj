@@ -3,8 +3,8 @@
 #include "AESLib.h"
 #include "ESP32_MailClient.h"
 
-char *ssid = "senthil_home1";
-char *pwd = "buzzlightyear";
+char *ssid = "";
+char *pwd = "";
 
 //REALTIME START
 const char* ntpServer = "pool.ntp.org";
@@ -18,8 +18,8 @@ unsigned char ciphertext[2*(128 + 1)] = {0}; // THIS IS OUTPUT BUFFER (FOR BASE6
 
 
 #define GMAIL_SMTP_SEVER "smtp.gmail.com"
-#define GMAIL_SMTP_USERNAME "saru.esp32@gmail.com"
-#define GMAIL_SMTP_PASSWORD "esp32SUX!"
+#define GMAIL_SMTP_USERNAME ""
+#define GMAIL_SMTP_PASSWORD ""
 #define GMAIL_SMTP_PORT 465  
 SMTPData data;
 
@@ -30,7 +30,7 @@ String sendEmail(int PH) {
   data.setSender("team32", GMAIL_SMTP_USERNAME);
   data.setSubject("team32 dash");
   data.setMessage("pH (" + String(PH) + ") is out of safe range", false);
-  data.addRecipient("saru.d.gr8@gmail.com");
+  data.addRecipient("");
   delay(100);
   Serial.println(MailClient.sendMail(data));
   if (!MailClient.sendMail(data)) 
